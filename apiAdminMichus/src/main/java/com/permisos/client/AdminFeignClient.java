@@ -1,10 +1,12 @@
 package com.permisos.client;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.permisos.modal.dto.*;
@@ -39,4 +41,10 @@ public interface AdminFeignClient {
 	// USUARIOSSISTEMA
 	@GetMapping("/usuariosSistema/listar")
 	public List<UsuariosSistemaDTO> listarUsuariosSistema();
+
+	// LOGIN_
+	@PostMapping("/api/login")
+    Map<String, Object> login(@RequestParam("email") String email, 
+                              @RequestParam("contrasenia") String contrasenia); 
+
 }
