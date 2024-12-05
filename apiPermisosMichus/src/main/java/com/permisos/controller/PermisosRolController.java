@@ -37,11 +37,18 @@ public class PermisosRolController {
 	}
 	
 	@PostMapping("/registrar")
-	public ResponseEntity<PermisosRol> registrarPermisoRol(@RequestBody PermisosRol permisoRol) {
-	    System.out.println("Datos recibidos: " + permisoRol);
-	    PermisosRol permisoRolRegistrado = permisosRolService.registrarPermisoRol(permisoRol);
-	    return new ResponseEntity<>(permisoRolRegistrado, HttpStatus.CREATED);
+	public ResponseEntity<String> registrarPermisoRol(@RequestBody PermisosRol permisoRol) {
+	    // Comprobar si el PermisosRol ya existe en la base de datos
+	    boolean existe = permisosRolService.existePermisosRol(permisoRol);
+
+	    if (existe) {
+	        return new ResponseEntity<>("El Permiso para este rol ya ha sido registrado.", HttpStatus.BAD_REQUEST);
+	    } else {
+	        permisosRolService.registrarPermisoRol(permisoRol);
+	        return new ResponseEntity<>("Permiso registrado con éxito.", HttpStatus.CREATED);
+	    }
 	}
+
 
 	
 	@GetMapping("/obtener/{idRol}/{idSubMenu}")
