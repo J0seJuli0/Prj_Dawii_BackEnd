@@ -1,6 +1,7 @@
 package com.permisos.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,5 +67,11 @@ public class AdminServiceImpl implements AdminService{
 		
 		return adminFeign.listarUsuariosSistema();
 	}
+	
+	
+	@Override
+    public Map<String, Object> login(String email, String contrasenia) {
+      return adminFeign.login(email, contrasenia);
+    }
 
 }
