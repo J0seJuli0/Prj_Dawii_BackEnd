@@ -19,7 +19,7 @@ public class PermisosRol {
 
 	   
 	@EmbeddedId
-	private PermisosRolId id;
+	private PermisosRolId id = new PermisosRolId();
 
 	@Column(name = "FECHA_CREACION")
 	private LocalDateTime fechaCreacion;
