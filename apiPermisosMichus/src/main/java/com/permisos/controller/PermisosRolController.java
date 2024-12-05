@@ -37,10 +37,12 @@ public class PermisosRolController {
 	}
 	
 	@PostMapping("/registrar")
-	public ResponseEntity<PermisosRol> registrarPermisoRol(@RequestBody PermisosRol permisoRol){
-		PermisosRol permisoRolRegistrado = permisosRolService.registrarPermisoRol(permisoRol);
-		return new ResponseEntity<>(permisoRolRegistrado, HttpStatus.CREATED);
+	public ResponseEntity<PermisosRol> registrarPermisoRol(@RequestBody PermisosRol permisoRol) {
+	    System.out.println("Datos recibidos: " + permisoRol);
+	    PermisosRol permisoRolRegistrado = permisosRolService.registrarPermisoRol(permisoRol);
+	    return new ResponseEntity<>(permisoRolRegistrado, HttpStatus.CREATED);
 	}
+
 	
 	@GetMapping("/obtener/{idRol}/{idSubMenu}")
 	public ResponseEntity<PermisosRol> obtenerPermisoPorId(
@@ -62,31 +64,6 @@ public class PermisosRolController {
 
 
 
-	@PutMapping("/actualizar/{idRol}/{idSubMenu}")
-	public ResponseEntity<PermisosRol> actualizarPermiso(
-	        @PathVariable String idRol,
-	        @PathVariable Long idSubMenu,
-	        @RequestBody PermisosRol permisoRol) {
-	    
-	    // Crear el objeto de la clave primaria compuesta
-	    PermisosRolId permisosRolId = new PermisosRolId(idRol, idSubMenu);
-
-	    // Verificar si existe el permiso
-	    Optional<PermisosRol> permisoExistente = permisoRolRepository.findById(permisosRolId);
-	    if (permisoExistente.isPresent()) {
-	        // Obtener el permiso existente
-	        PermisosRol permisoActualizado = permisoExistente.get();
-	        
-	        // Aquí puedes actualizar cualquier campo que quieras modificar
-	        permisoActualizado.setFechaModificacion(LocalDateTime.now()); // Ejemplo de actualización
-	        
-	        // Guardar el permiso actualizado
-	        PermisosRol updatedRol = permisoRolRepository.save(permisoActualizado);
-	        return new ResponseEntity<>(updatedRol, HttpStatus.OK);
-	    } else {
-	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	    }
-	}
 
 
 }
