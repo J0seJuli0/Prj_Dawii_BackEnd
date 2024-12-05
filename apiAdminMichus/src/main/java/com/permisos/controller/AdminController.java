@@ -1,10 +1,13 @@
 package com.permisos.controller;
 
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.permisos.modal.dto.EmpleadoDTO;
@@ -20,8 +23,11 @@ import com.permisos.service.AdminService;
 @RequestMapping("/admin")
 public class AdminController {
 	
-	@Autowired
-    private AdminService adminService;
+	private final AdminService adminService;
+
+    public AdminController(AdminService adminService) {
+        this.adminService = adminService;
+    }
 	
 	//EMPLEADO -- LISTO
 	@GetMapping("/listarempleado")
@@ -69,6 +75,16 @@ public class AdminController {
 	@GetMapping("/listarusuariosistema")
     public List<UsuariosSistemaDTO> listarUsuariosSistema() {
         return adminService.listarUsuariosSistema(); 
+    }
+
+	
+	
+	// INICIAR SESION:
+	@PostMapping
+    public ResponseEntity<Map<String, Object>> login(@RequestParam String email, @RequestParam String contrasenia) {
+        Map<String, Object> result = adminService.login(email, contrasenia);
+
+        return ResponseEntity.ok(result);
     }
 	
 }
