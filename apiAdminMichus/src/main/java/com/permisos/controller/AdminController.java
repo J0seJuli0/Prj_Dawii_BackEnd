@@ -5,7 +5,10 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,49 +33,70 @@ public class AdminController {
     }
 	
 	//EMPLEADO -- LISTO
-	@GetMapping("/listarempleado")
+	@GetMapping("/empleado/listarempleado")
     public List<EmpleadoDTO> listarEstudiantes() {
         return adminService.listarEmpleados(); 
     }
 
 	
 	// MENU -- LISTO
-	@GetMapping("/listarmenu")
+	@GetMapping("/menu/listarmenu")
     public List<MenuDTO> listarMenu() {
         return adminService.listarMenu(); 
     }
 	
 	
 	// PERMISOS_ROL -- LISTO
-	@GetMapping("/listarpermisosrol")
+	@GetMapping("/permisosrol/listarpermisorol")
     public List<PermisosRolDTO> listarPermisosRol() {
         return adminService.listarPermisosRol(); 
     }
 	
 	
+	@PostMapping("/permisosrol/crearpermisosrol")
+    public ResponseEntity<String> crearPermisoRol(@RequestBody PermisosRolDTO permisoRol) {
+        return adminService.registrarPermisoRol(permisoRol);
+    }
+	
+	
 	// ROL -- LISTO
-	@GetMapping("/listarrol")
+	@GetMapping("/rol/listarrol")
     public List<RolDTO> listarRol() {
         return adminService.listarRol(); 
     }
 	
+	@PostMapping("/rol/crearrol")
+    public ResponseEntity<RolDTO> crearRol(@RequestBody RolDTO rol) {
+        return adminService.registrarRol(rol);
+    }
+	
+	@PutMapping("/rol/actualizarrol/{idRol}")
+    public ResponseEntity<RolDTO> actualizarRol(@PathVariable("idRol") String idRol, @RequestBody RolDTO rol) {
+        return adminService.actualizarRol(idRol, rol);
+    }
+	
 	
 	// SUB_MENU -- LISTO
-	@GetMapping("/listarsubmenu")
+	@GetMapping("/sub_menu/listarsubmenu")
     public List<SubMenuDTO> listarSubMenu() {
         return adminService.listarSubMenu(); 
     }
 	
+	@PutMapping("/sub_menu/actualizarsubmenu/{idSubMenus}")
+    public ResponseEntity<SubMenuDTO> actualizarSubMenu(@PathVariable("idSubMenus") Long idSubMenus, @RequestBody SubMenuDTO submenu) {
+        return adminService.actualizarSubMenu(idSubMenus, submenu);
+    }
+	
 	
 	// TIPO_DOCUMENTO -- LISTO
-	@GetMapping("/listartipodocumento")
+	@GetMapping("/tipo_documento/listartipodocumento")
     public List<TipoDocumentoDTO> listarTipoDocumento() {
         return adminService.listarTipoDocumento(); 
     }
 	
 	
 	// USUARIOS_SISTEMA -- LISTO
-	@GetMapping("/listarusuariosistema")
+	@GetMapping("/usuarios_sistema/listarusuariosistema")
     public List<UsuariosSistemaDTO> listarUsuariosSistema() {
         return adminService.listarUsuariosSistema(); 
     }
@@ -80,7 +104,7 @@ public class AdminController {
 	
 	
 	// INICIAR SESION:
-	@PostMapping
+	@PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@RequestParam String email, @RequestParam String contrasenia) {
         Map<String, Object> result = adminService.login(email, contrasenia);
 
