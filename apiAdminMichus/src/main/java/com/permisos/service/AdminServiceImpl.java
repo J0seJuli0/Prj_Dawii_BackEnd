@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.permisos.client.AdminFeignClient;
@@ -38,6 +39,12 @@ public class AdminServiceImpl implements AdminService{
 		return adminFeign.listarPermisosRol();
 	}
 		
+	@Override
+	public ResponseEntity<String> registrarPermisoRol(PermisosRolDTO permisoRol) {
+		return adminFeign.registrarPermisoRol(permisoRol);
+	}
+	
+	
 	
 	// ROL
 	@Override
@@ -45,14 +52,32 @@ public class AdminServiceImpl implements AdminService{
 	
 		return adminFeign.listarRol();
 	}
-			
-		
+
+	@Override
+	public ResponseEntity<RolDTO> registrarRol(RolDTO rol) {
+		return adminFeign.registrarRol(rol);
+	}
+	
+	
+	@Override
+	public ResponseEntity<RolDTO> actualizarRol(String idRol, RolDTO rol) {
+		return adminFeign.actualizarRol(idRol, rol);
+	}
+
+	
+	
 	// SUB_MENU
 	@Override
 	public List<SubMenuDTO> listarSubMenu() {
 	
 		return adminFeign.listarSubMenu();
 	}
+	
+	@Override
+	public ResponseEntity<SubMenuDTO> actualizarSubMenu(Long idSubMenus, SubMenuDTO submenu) {
+		return adminFeign.actualizarSubMenu(idSubMenus, submenu);
+	}
+	
 			
 		
 	// TIPO_DOCUMENTO
