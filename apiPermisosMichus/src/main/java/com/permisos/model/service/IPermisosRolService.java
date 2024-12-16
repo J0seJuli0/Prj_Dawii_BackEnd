@@ -11,15 +11,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class IPermisosRolService {
 
-	private IPermisoRolRepository permisoRolRepository;
-	
-	public PermisosRol registrarPermisoRol (PermisosRol permisosRol) {
-		return permisoRolRepository.save(permisosRol);
-	}
-
-	public boolean existePermisosRol(PermisosRol permisoRol) {
-		return permisoRolRepository.existsById(permisoRol.getId());
-	}
 	
 
 
