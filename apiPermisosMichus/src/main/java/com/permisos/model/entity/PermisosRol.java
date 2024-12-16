@@ -17,30 +17,29 @@ import lombok.Data;
 @Data
 public class PermisosRol {
 
-	   
-	@EmbeddedId
-	private PermisosRolId id = new PermisosRolId();
+	 @EmbeddedId
+	    private PermisosRolId id = new PermisosRolId();
 
-	@Column(name = "FECHA_CREACION")
-	private LocalDateTime fechaCreacion;
-	
-	@Column(name = "FECHA_MODIFICACION")
-	private LocalDateTime fechaModificacion;
-	
-	 // Getters y Setters para idRol y idSubMenu
-    public String getIdRol() {
-        return id.getIdRol();
-    }
+	    @Column(name = "FECHA_CREACION")
+	    private LocalDateTime fechaCreacion;
 
-    public void setIdRol(String idRol) {
-        id.setIdRol(idRol);
-    }
+	    @Column(name = "FECHA_MODIFICACION")
+	    private LocalDateTime fechaModificacion;
 
-    public Long getIdSubMenu() {
-        return id.getIdSubmenu();
-    }
+	    // Puedes dejar estos métodos si lo prefieres
+	    public String getIdRol() {
+	        return id.getIdRol();
+	    }
 
-    public void setIdSubMenu(Long idSubMenu) {
-        id.setIdSubmenu(idSubMenu);
-    }
+	    public void setIdRol(String idRol) {
+	        id.setIdRol(idRol);
+	    }
+
+	    public Long getIdSubMenu() {
+	        return id.getIdSubmenu();
+	    }
+
+	    public void setIdSubMenu(Long idSubMenu) {
+	        id.setIdSubmenu(idSubMenu);
+	    }
 }

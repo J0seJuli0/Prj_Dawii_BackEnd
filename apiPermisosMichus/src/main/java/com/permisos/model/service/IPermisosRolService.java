@@ -1,10 +1,9 @@
-package com.permisos.service;
+package com.permisos.model.service;
 
 import org.springframework.stereotype.Service;
 
 import com.permisos.model.entity.PermisosRol;
 import com.permisos.model.repository.IPermisoRolRepository;
-import com.permisos.model.repository.IRolRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -21,4 +20,7 @@ public class IPermisosRolService {
 	public boolean existePermisosRol(PermisosRol permisoRol) {
 		return permisoRolRepository.existsById(permisoRol.getId());
 	}
+	
+
+
 }

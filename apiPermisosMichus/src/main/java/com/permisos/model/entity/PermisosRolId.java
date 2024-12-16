@@ -9,10 +9,10 @@ import jakarta.persistence.Embeddable;
 @Embeddable
 public class PermisosRolId implements Serializable {
 
-    @Column(name = "ID_ROL") // Mapea el nombre de la columna en la BD
+    @Column(name = "ID_ROL") 
     private String idRol;
 
-    @Column(name = "ID_SUBMENU") // Mapea el nombre de la columna en la BD
+    @Column(name = "ID_SUBMENU") 
     private Long idSubmenu;
 
     // Constructor vacío para JPA

@@ -1,4 +1,4 @@
-package com.permisos.service;
+package com.permisos.model.service;
 
 import java.util.Optional;
 

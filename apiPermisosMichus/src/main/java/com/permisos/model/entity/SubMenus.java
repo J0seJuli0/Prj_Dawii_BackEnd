@@ -36,7 +36,7 @@ public class SubMenus {
 	private Integer ordenSubMenu;
 	
 	@Column(name = "ESTADO_SUBMENU", nullable = false)
-	private Boolean estadoSubMenu;
+	private Integer estadoSubMenu;
 	
 	@Column(name = "FECHA_CREACION")
 	private LocalDateTime fechaCreacion;

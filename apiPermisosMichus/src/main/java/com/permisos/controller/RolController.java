@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.permisos.model.entity.Rol;
 import com.permisos.model.repository.IRolRepository;
-import com.permisos.service.RolService;
+import com.permisos.model.service.RolService;
 
 import lombok.AllArgsConstructor;
 
@@ -49,17 +49,6 @@ public class RolController {
 		}
 	}
 	
-	@PutMapping("/actualizar/{id}")
-    public ResponseEntity<Rol> actualizarRol(@PathVariable String id, @RequestBody Rol rol) {
-        Optional<Rol> rolExistente = rolRepository.findById(id);
-        if (rolExistente.isPresent()) {
-            Rol rolActualizado = rolExistente.get();
-            rolActualizado.setRol(rol.getRol());
-            Rol updatedRol = rolRepository.save(rolActualizado);
-            return new ResponseEntity<>(updatedRol, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+
 
 }

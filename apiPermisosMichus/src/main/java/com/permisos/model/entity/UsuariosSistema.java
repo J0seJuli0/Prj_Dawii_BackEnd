@@ -2,8 +2,10 @@ package com.permisos.model.entity;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -28,9 +30,9 @@ public class UsuariosSistema {
 	@Column(name = "CONTRASENIA", length = 100, nullable = false)
 	private String contrasenia;
 	
-	@ManyToOne
-	@JoinColumn(name = "ID_ROL")
-	private Rol idRol;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID_ROL", referencedColumnName = "ID_ROL", nullable = false)
+	private Rol rol;
 	
 	@Column(name = "FECHA_CREACION")
 	private LocalDateTime fechaCreacion;

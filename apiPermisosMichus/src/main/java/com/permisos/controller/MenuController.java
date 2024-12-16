@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.permisos.model.entity.Menu;
 import com.permisos.model.repository.IMenuRepository;
-import com.permisos.service.MenuService;
+import com.permisos.model.service.MenuService;
 
 import lombok.AllArgsConstructor;
 
@@ -23,7 +23,6 @@ import lombok.AllArgsConstructor;
 public class MenuController {
 
 	private IMenuRepository menuRepository;
-	private MenuService menuService;
 	@GetMapping("/listar")
 	public List<Menu> listar(){
 		return menuRepository.findAll();

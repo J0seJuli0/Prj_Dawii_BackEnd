@@ -1,5 +1,6 @@
-package com.permisos.service;
+package com.permisos.model.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -22,4 +23,8 @@ public class SubMenuService {
 	public SubMenus guardar (SubMenus subMenus) {
 		return submenusRepository.save(subMenus);
 	}
+	
+	public List<SubMenus> obtenerPorIdMenu(Long idMenu) {
+        return submenusRepository.findByIdMenu_IdMenu(idMenu);
+    }
 }
