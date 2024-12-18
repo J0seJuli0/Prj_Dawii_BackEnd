@@ -1,7 +1,6 @@
 package com.permisos.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,43 +9,49 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.permisos.modal.dto.*;
 
 public interface AdminService {
+
 	// EMPLEADOS
-	List<EmpleadoDTO>listarEmpleados();
+	List<EmpleadoDTO>listarEmpleados(String authorizationHeader);
 	
 	
 	// MENU
-	List<MenuDTO>listarMenu();
+	List<MenuDTO>listarMenu(String authorizationHeader);
 	
 	
 	// PERMISOS_ROL
-	List<PermisosRolDTO>listarPermisosRol();
-	
-	ResponseEntity<String> registrarPermisoRol(@RequestBody PermisosRolDTO permisoRol);
+	List<PermisosRolDTO>listarPermisosRol(String authorizationHeader);
+		
+	ResponseEntity<String> registrarPermisoRol(@RequestBody PermisosRolDTO permisoRol, String authorizationHeader);
+
+	PermisosRolDTO BuscarPermisosRol(String idRol, Long idSubMenu, String authorizationHeader);
 	
 	
 	// ROL
-	List<RolDTO>listarRol();
+	List<RolDTO>listarRol(String authorizationHeader);
 		
-	ResponseEntity<RolDTO> registrarRol(@RequestBody RolDTO rol);
+	ResponseEntity<RolDTO> registrarRol(@RequestBody RolDTO rol, String authorizationHeader);
 
-	ResponseEntity<RolDTO> actualizarRol(@PathVariable("idRol") String idRol, @RequestBody RolDTO rol);
+	RolDTO BuscarRol(String idRol, String authorizationHeader);
+	
 	
 	
 	// SUB_MENU
-	List<SubMenuDTO>listarSubMenu();
+	List<SubMenuDTO>listarSubMenu(String authorizationHeader);
 		
-	ResponseEntity<SubMenuDTO> actualizarSubMenu(@PathVariable("idSubMenus") Long idSubMenus, @RequestBody SubMenuDTO submenu);
+	
+	ResponseEntity<String> actualizarSubMenu(Long idSubMenus, SubMenuDTO submenu, String authorizationHeader);
+	
+	
+	
+	
 	
 	
 	// TIPO_DOCUMENTO
-	List<TipoDocumentoDTO>listarTipoDocumento();
-	
-	
-	// USUARIOS_SISTEMA
-	List<UsuariosSistemaDTO>listarUsuariosSistema();
+	List<TipoDocumentoDTO>listarTipoDocumento(String authorizationHeader);
+
 	
 	
 	
 	// LOGIN
-	Map<String, Object> login(String email, String contrasenia);
+	LoginOutputDTO login (LoginInputDTO inputDTO);
 }
