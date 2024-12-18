@@ -4,11 +4,16 @@ import java.time.LocalDateTime;
 
 public record PermisosRolDTO(
 	    IdDTO id,
-	    LocalDateTime  fechaCreacion,
-	    LocalDateTime  fechaModificacion
+	    LocalDateTime fechaCreacion,
+	    LocalDateTime fechaModificacion,
+	    String idRol,
+	    Long idSubMenu
+	    
 	) {
+
 	    public record IdDTO(
 	        String idRol,
-	        int idSubmenu
+	        Long idSubmenu
 	    ) {}
+	    
 	}
