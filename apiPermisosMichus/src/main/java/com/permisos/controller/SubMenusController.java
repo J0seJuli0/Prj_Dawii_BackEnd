@@ -35,7 +35,7 @@ public class SubMenusController {
 		return subMenusRepository.findAll();
 	}
 	
-	@PutMapping("actualizar/{idSubMenus}")
+	@PutMapping("/actualizar/{idSubMenus}")
 	public ResponseEntity<?> actualizar(@PathVariable Long idSubMenus, @RequestBody SubMenus submenu){
 		Optional<SubMenus> subMenuExiste = subMenuService.obtenerPorId(idSubMenus);
 		
