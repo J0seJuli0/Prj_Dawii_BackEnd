@@ -1,16 +1,15 @@
 package com.permisos.modal.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public record SubMenuDTO(
 		Long idSubMenus,
-		MenuDTO idMenu,
-		String nombreSubMenu,
-		String enlaceSubMenu,
-		Integer ordenSubMenu,
-		Boolean estadoSubMenu,
-		Date fechaCreacion,
-		Date fechaModificacion
-		) {
-
-}
+	    MenuDTO idMenu,
+	    String nombreSubMenu,
+	    String enlaceSubMenu,
+	    Integer ordenSubMenu,
+	    Integer estadoSubMenu,
+	    LocalDateTime fechaCreacion,
+	    LocalDateTime fechaModificacion
+	) {
+	}
