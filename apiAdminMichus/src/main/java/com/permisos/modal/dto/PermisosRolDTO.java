@@ -3,17 +3,11 @@ package com.permisos.modal.dto;
 import java.time.LocalDateTime;
 
 public record PermisosRolDTO(
-	    IdDTO id,
+		String idRol,
+		Long idSubmenu,
 	    LocalDateTime fechaCreacion,
-	    LocalDateTime fechaModificacion,
-	    String idRol,
-	    Long idSubMenu
+	    LocalDateTime fechaModificacion
+	    
 	    
 	) {
-
-	    public record IdDTO(
-	        String idRol,
-	        Long idSubmenu
-	    ) {}
-	    
 	}
