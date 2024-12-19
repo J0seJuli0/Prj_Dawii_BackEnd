@@ -1,6 +1,7 @@
 package com.permisos.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,6 @@ import com.permisos.modal.dto.PermisosRolDTO;
 import com.permisos.modal.dto.RolDTO;
 import com.permisos.modal.dto.SubMenuDTO;
 import com.permisos.modal.dto.TipoDocumentoDTO;
-import com.permisos.modal.dto.UsuariosSistemaDTO;
 import com.permisos.service.AdminService;
 
 @CrossOrigin(origins="http://localhost:4200")
@@ -73,13 +73,11 @@ public class AdminController {
 	@GetMapping("/permisosrol/listarpermisorol")
 	public ResponseEntity<?> listarPermisosRol(@RequestHeader(value = "Authorization", required = true) String authorizationHeader) {
 	    try {
-	        // Verificar si el encabezado contiene un token válido
 	        String token = authorizationHeader.replace("Bearer ", "").trim();
 	        if (token.isEmpty()) {
 	            return ResponseEntity.badRequest().body("Token vacío");
 	        }
 
-	        // Llamar al servicio para obtener los permisos
 	        List<PermisosRolDTO> permisosRol = adminService.listarPermisosRol(token);
 
 	        return ResponseEntity.ok(permisosRol);
@@ -106,6 +104,8 @@ public class AdminController {
 	    }
 	}
 	
+	
+	// --- REVISAR
 	@GetMapping("/permisosrol/obtener/{idRol}/{idSubMenu}")
 	public ResponseEntity<?> obtenerPermisosRol(@RequestHeader(value = "Authorization", required = true) String authorizationHeader, @PathVariable String idRol, @PathVariable Long idSubMenu) {
 	    try {
@@ -116,7 +116,6 @@ public class AdminController {
 	        PermisosRolDTO permisosRol = adminService.BuscarPermisosRol(idRol, idSubMenu, authorizationHeader);
 	        return ResponseEntity.ok(permisosRol);
 	    } catch (Exception e) {
-	        // Devuelve el mensaje del error en la respuesta para depuración
 	        String errorMessage = "Error al obtener permisos: " + e.getMessage();
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
 	    }
@@ -164,7 +163,6 @@ public class AdminController {
 	        RolDTO Rol = adminService.BuscarRol(id, authorizationHeader);
 	        return ResponseEntity.ok(Rol);
 	    } catch (Exception e) {
-	        // Devuelve el mensaje del error en la respuesta para depuración
 	        String errorMessage = "Error al obtener permisos: " + e.getMessage();
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
 	    }
@@ -188,16 +186,32 @@ public class AdminController {
 	    }
 	}
 
+	@GetMapping("/sub_menu/obtener/{idMenu}")
+	public ResponseEntity<?> obtenerSubMenuRol(@PathVariable Long idMenu, @RequestHeader(value = "Authorization", required = true) String authorizationHeader) {
+	    try {
+	        String token = authorizationHeader.replace("Bearer ", "").trim();
+	        if (token.isEmpty()) {
+	            return ResponseEntity.badRequest().body("Token vacío");
+	        }
+
+	        List<SubMenuDTO> menus = (List<SubMenuDTO>) adminService.BuscarSubMenu(idMenu, authorizationHeader);
+
+	        if (menus.isEmpty()) {
+	            return ResponseEntity.noContent().build();
+	        }
+
+	        return ResponseEntity.ok(menus);
+
+	    } catch (Exception e) {
+	        String errorMessage = "Error al obtener submenús: " + e.getMessage();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+	    }
+	}
 	
-	
-	// ----- NO FUNCIONA ----
 	@PutMapping("/sub_menu/actualizar/{idSubMenus}")
     public ResponseEntity<String> actualizarSubMenu(@PathVariable("idSubMenus") Long idSubMenus, @RequestBody SubMenuDTO submenu, @RequestHeader(value = "Authorization", required = true) String authorizationHeader) {
         return adminService.actualizarSubMenu(idSubMenus, submenu, authorizationHeader);
     }
-
-	
-	
 	
 	
 	
@@ -219,6 +233,20 @@ public class AdminController {
 
 	
 	
+	// USUARIO
+	@PutMapping("/usuario/actualizar-rol")
+    public ResponseEntity<String> actualizarRol(@RequestBody Map<String, String> request, @RequestHeader(value = "Authorization", required = true) String authorizationHeader) {
+        String idUsuario = request.get("idUsuario");
+        String idRol = request.get("idRol");
+
+        String resultado = adminService.actualizarRol(idUsuario, idRol, authorizationHeader);
+
+        if (resultado.equals("Usuario Actualizado Correctamente.")) {
+            return ResponseEntity.ok(resultado);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resultado);
+        }
+    }
 	
 	
 	
@@ -231,6 +259,3 @@ public class AdminController {
     }
 	
 }
-
-
-//-------------------------------- 17/12/2024
