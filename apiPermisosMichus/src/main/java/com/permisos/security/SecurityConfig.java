@@ -26,16 +26,16 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(http -> {
                     http.requestMatchers("/api/usuario/login").permitAll();
+                    
                     http.requestMatchers("/empleado/listar").hasRole("Jefe");
+                    http.requestMatchers("/empleado/empleados").hasRole("Jefe");
                     
                     http.requestMatchers("/menu/listar").hasRole("Jefe");
                     
                     http.requestMatchers("/permisosRol/listar").hasRole("Jefe");
-                    http.requestMatchers("/permisosRol/registrar").hasRole("Jefe");
-                    http.requestMatchers("/permisosRol/obtener/{idRol}/{idSubMenu}").hasRole("Jefe");
+                    http.requestMatchers("/permisosRol/actualizar").hasRole("Jefe");
                     
                     http.requestMatchers("/rol/listar").hasRole("Jefe");
-                    http.requestMatchers("/rol/registrar").hasRole("Jefe");
                     http.requestMatchers("/rol/obtener/{id}").hasRole("Jefe");
                     
                     http.requestMatchers("/subMenus/listar").hasRole("Jefe");
