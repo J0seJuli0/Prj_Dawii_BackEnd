@@ -10,14 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.permisos.client.AdminFeignClient;
-import com.permisos.modal.dto.EmpleadoDTO;
-import com.permisos.modal.dto.LoginInputDTO;
-import com.permisos.modal.dto.LoginOutputDTO;
-import com.permisos.modal.dto.MenuDTO;
-import com.permisos.modal.dto.PermisosRolDTO;
-import com.permisos.modal.dto.RolDTO;
-import com.permisos.modal.dto.SubMenuDTO;
-import com.permisos.modal.dto.TipoDocumentoDTO;
+import com.permisos.modal.dto.*;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -32,6 +25,12 @@ public class AdminServiceImpl implements AdminService{
 		return adminFeign.listarEmpleado(authorizationHeader);
 	}
 
+	@Override
+	public List<EmpleadoDTOForm> listarEmpleadosFormato(String authorizationHeader) {
+	
+		return adminFeign.listarEmpleadosFormato(authorizationHeader);
+	}
+	
 	
 	
 	// MENU
@@ -41,6 +40,10 @@ public class AdminServiceImpl implements AdminService{
 		return adminFeign.listarMenu(authorizationHeader);
 	}
 		
+	
+
+	
+	// PERMISOS ROL
 	@Override
 	public List<PermisosRolDTO> listarPermisosRol(String authorizationHeader) {
 	    if (!authorizationHeader.startsWith("Bearer ")) {
@@ -49,19 +52,11 @@ public class AdminServiceImpl implements AdminService{
 	    return adminFeign.listarPermisosRol(authorizationHeader);
 	}
 	
-
-	
-	// PERMISOS ROL	
 	@Override
-	public ResponseEntity<String> registrarPermisoRol(PermisosRolDTO permisoRol, String authorizationHeader) {
-		return adminFeign.registrarPermisoRol(permisoRol, authorizationHeader);
-	}
+    public ResponseEntity<String> actualizarPermiso(ActualizarPermisosRequest request, String authorizationHeader) {
+        return adminFeign.actualizarPermiso(request, authorizationHeader);
+    }
 	
-	@Override
-	public PermisosRolDTO BuscarPermisosRol(String idRol, Long idSubMenu, String authorizationHeader) {
-	    return adminFeign.obtenerPermisosPorId(idRol, idSubMenu, authorizationHeader);
-	}
-
 	
 	
 	// ROL
