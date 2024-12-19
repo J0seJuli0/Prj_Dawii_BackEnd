@@ -1,13 +1,23 @@
 package com.permisos.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.permisos.client.AdminFeignClient;
-import com.permisos.modal.dto.*;
+import com.permisos.modal.dto.EmpleadoDTO;
+import com.permisos.modal.dto.LoginInputDTO;
+import com.permisos.modal.dto.LoginOutputDTO;
+import com.permisos.modal.dto.MenuDTO;
+import com.permisos.modal.dto.PermisosRolDTO;
+import com.permisos.modal.dto.RolDTO;
+import com.permisos.modal.dto.SubMenuDTO;
+import com.permisos.modal.dto.TipoDocumentoDTO;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -23,6 +33,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	
+	
 	// MENU
 	@Override
 	public List<MenuDTO> listarMenu(String authorizationHeader) {
@@ -30,21 +41,17 @@ public class AdminServiceImpl implements AdminService{
 		return adminFeign.listarMenu(authorizationHeader);
 	}
 		
-	
 	@Override
 	public List<PermisosRolDTO> listarPermisosRol(String authorizationHeader) {
-	    // Asegurarte de que tiene el prefijo "Bearer"
 	    if (!authorizationHeader.startsWith("Bearer ")) {
 	        authorizationHeader = "Bearer " + authorizationHeader.trim();
 	    }
-
-	    // Llamada al Feign Client
 	    return adminFeign.listarPermisosRol(authorizationHeader);
 	}
 	
 
 	
-		
+	// PERMISOS ROL	
 	@Override
 	public ResponseEntity<String> registrarPermisoRol(PermisosRolDTO permisoRol, String authorizationHeader) {
 		return adminFeign.registrarPermisoRol(permisoRol, authorizationHeader);
@@ -54,8 +61,6 @@ public class AdminServiceImpl implements AdminService{
 	public PermisosRolDTO BuscarPermisosRol(String idRol, Long idSubMenu, String authorizationHeader) {
 	    return adminFeign.obtenerPermisosPorId(idRol, idSubMenu, authorizationHeader);
 	}
-	
-
 
 	
 	
@@ -70,13 +75,11 @@ public class AdminServiceImpl implements AdminService{
 	public ResponseEntity<RolDTO> registrarRol(RolDTO rol, String authorizationHeader) {
 		return adminFeign.registrarRol(rol, authorizationHeader);
 	}
-
 	
 	@Override
 	public RolDTO BuscarRol(String idRol, String authorizationHeader) {
 		return adminFeign.obtenerRolPorId(idRol, authorizationHeader);
 	}
-
 
 	
 	
@@ -88,27 +91,46 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-    public ResponseEntity<String> actualizarSubMenu(Long idSubMenus, SubMenuDTO submenu, String authorizationHeader) {
-        return adminFeign.actualizarSubMenu(idSubMenus, submenu, authorizationHeader);
+	public ResponseEntity<String> actualizarSubMenu(Long idSubMenus, SubMenuDTO subMenu, String authorizationHeader) {
+        return adminFeign.actualizarSubMenu(idSubMenus, subMenu, authorizationHeader);
     }
 	
-			
+	@Override
+	public List<SubMenuDTO> BuscarSubMenu(Long idMenu, String authorizationHeader) {
+		return adminFeign.listarSubMenusPorMenu(idMenu, authorizationHeader);
+	}
+	
+	
 		
 	// TIPO_DOCUMENTO
-	public List<TipoDocumentoDTO> listarTipoDocumento(String authorizationHeader) {
-		
+	public List<TipoDocumentoDTO> listarTipoDocumento(String authorizationHeader) {	
 		return adminFeign.listarTipoDocumento(authorizationHeader);
 	}
 	
+	
 
+	// USUARIO
+	@Override
+    public String actualizarRol(String idUsuario, String idRol, String authorizationHeader) {
+        Map<String, String> request = new HashMap<>();
+        request.put("idUsuario", idUsuario);
+        request.put("idRol", idRol);
+        
+        ResponseEntity<String> response = adminFeign.actualizarUsuario(request, authorizationHeader);
+        
+        if (response.getStatusCode() == HttpStatus.OK) {
+            return "Usuario Actualizado Correctamente.";
+        } else {
+            return "Usuario o Rol no encontrado";
+        }
+	}
+	
+	
+	
+	// LOGIN
 	@Override
 	public LoginOutputDTO login(LoginInputDTO inputDTO) {
 		return adminFeign.login(inputDTO);
 	}
-
-
-	
-
-	
 
 }
