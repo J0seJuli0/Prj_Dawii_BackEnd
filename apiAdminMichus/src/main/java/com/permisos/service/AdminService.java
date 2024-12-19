@@ -5,19 +5,14 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.permisos.modal.dto.EmpleadoDTO;
-import com.permisos.modal.dto.LoginInputDTO;
-import com.permisos.modal.dto.LoginOutputDTO;
-import com.permisos.modal.dto.MenuDTO;
-import com.permisos.modal.dto.PermisosRolDTO;
-import com.permisos.modal.dto.RolDTO;
-import com.permisos.modal.dto.SubMenuDTO;
-import com.permisos.modal.dto.TipoDocumentoDTO;
+import com.permisos.modal.dto.*;
 
 public interface AdminService {
 
 	// EMPLEADOS
 	List<EmpleadoDTO>listarEmpleados(String authorizationHeader);
+	
+	List<EmpleadoDTOForm>listarEmpleadosFormato(String authorizationHeader);
 	
 	
 	
@@ -29,10 +24,7 @@ public interface AdminService {
 	// PERMISOS_ROL
 	List<PermisosRolDTO>listarPermisosRol(String authorizationHeader);
 		
-	ResponseEntity<String> registrarPermisoRol(@RequestBody PermisosRolDTO permisoRol, String authorizationHeader);
-
-	PermisosRolDTO BuscarPermisosRol(String idRol, Long idSubMenu, String authorizationHeader);
-	
+	ResponseEntity<String> actualizarPermiso(ActualizarPermisosRequest request, String authorizationHeader);
 	
 	
 	// ROL
