@@ -12,14 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-import com.permisos.modal.dto.EmpleadoDTO;
-import com.permisos.modal.dto.LoginInputDTO;
-import com.permisos.modal.dto.LoginOutputDTO;
-import com.permisos.modal.dto.MenuDTO;
-import com.permisos.modal.dto.PermisosRolDTO;
-import com.permisos.modal.dto.RolDTO;
-import com.permisos.modal.dto.SubMenuDTO;
-import com.permisos.modal.dto.TipoDocumentoDTO;
+import com.permisos.modal.dto.*;
 
 @FeignClient(name="apiPermisosMichus")
 public interface AdminFeignClient {
@@ -27,6 +20,9 @@ public interface AdminFeignClient {
 	// EMPLEADOS
 	@GetMapping("/empleado/listar")
 	public List<EmpleadoDTO> listarEmpleado(@RequestHeader("Authorization") String authorizationHeader);
+	
+	@GetMapping("/empleado/empleados")
+	public List<EmpleadoDTOForm> listarEmpleadosFormato(@RequestHeader("Authorization") String authorizationHeader);
 	
 	
 	
@@ -40,11 +36,8 @@ public interface AdminFeignClient {
 	@GetMapping("/permisosRol/listar")
 	List<PermisosRolDTO> listarPermisosRol(@RequestHeader("Authorization") String authorizationHeader);
 	
-	@PostMapping("/permisosRol/registrar")
-	ResponseEntity<String> registrarPermisoRol(@RequestBody PermisosRolDTO permisoRol, @RequestHeader("Authorization") String authorizationHeader);	
-	
-	@GetMapping("/permisosRol/obtener/{idRol}/{idSubMenu}")
-	PermisosRolDTO obtenerPermisosPorId(@PathVariable("idRol") String idRol, @PathVariable("idSubMenu") Long idSubMenu, @RequestHeader("Authorization") String authorizationHeader);
+	@PutMapping("/permisosRol/actualizar")
+	ResponseEntity<String> actualizarPermiso(@RequestBody ActualizarPermisosRequest request, @RequestHeader("Authorization") String authorizationHeader);
 	
 	
 	
