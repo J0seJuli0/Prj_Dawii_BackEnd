@@ -21,37 +21,33 @@ public class EmpleadosService {
 	    List<Object[]> empleadosRaw = usuariosSistemaRepository.getListaEmpleados();
 	    List<EmpleadosDTO> empleadosDTO = new ArrayList<>();
 
-	    for (Object[] row : empleadosRaw) {
-	        // Mapea cada columna del resultado a los campos correspondientes del DTO
+	    for (Object[] row : empleadosRaw) { 
 	    	String codigo = (String) row [0];
 	        String nombres = (String) row[1];
 	        String apellidos = (String) row[2];
 	        String documento = (String) row[3];
 	        String numDoc = (String) row[4];
-	        
-	        // Maneja la conversión de fecha si es necesario
+	         
 	        Object fechaIngresoObject = row[5];
 	        String fechaIngreso = "";
 	        if (fechaIngresoObject instanceof java.sql.Timestamp) {
 	            java.sql.Timestamp timestamp = (java.sql.Timestamp) fechaIngresoObject;
 	            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	            fechaIngreso = dateFormat.format(timestamp);  // Convierte el Timestamp a String
+	            fechaIngreso = dateFormat.format(timestamp);  
 	        } else {
 	            fechaIngreso = (String) fechaIngresoObject;
 	        }
-
-	        // Verifica si el valor es un Byte para evitar el ClassCastException
+ 
 	        String estado = null;
 	        Object estadoObject = row[6];
 	        if (estadoObject instanceof Byte) {
 	            estado = (estadoObject != null) ? String.valueOf(estadoObject) : null;
 	        } else {
-	            estado = (String) estadoObject;  // Si ya es String, no es necesario hacer conversión
+	            estado = (String) estadoObject;  
 	        }
 
 	        String rol = (String) row[7];
-
-	        // Crea el objeto EmpleadoDTO
+ 
 	        EmpleadosDTO empleadoDTO = new EmpleadosDTO(codigo ,nombres, apellidos, documento, numDoc, 
 	                                                  fechaIngreso, estado, rol);
 	        empleadosDTO.add(empleadoDTO);

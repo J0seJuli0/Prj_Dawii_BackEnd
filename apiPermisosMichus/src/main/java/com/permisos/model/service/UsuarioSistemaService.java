@@ -18,28 +18,22 @@ public class UsuarioSistemaService {
 
 	private IUsuariosSistemaRepository usuariosSistemaRepository;
 	private IRolRepository rolRepository;
-	
-	
+	 
 	@Transactional
-    public UsuariosSistema actualizarRol(String idUsuario, String idRol) {
-        // Buscar el usuario
+    public UsuariosSistema actualizarRol(String idUsuario, String idRol) { 
         UsuariosSistema usuario = usuariosSistemaRepository.findByIdUsuario(idUsuario);
 
-        if (usuario != null) {
-            // Buscar el rol
+        if (usuario != null) { 
             Rol rolNuevo = rolRepository.findById(idRol).orElse(null);
 
-            if (rolNuevo != null) {
-                // Actualizar el rol
-                usuario.setRol(rolNuevo);
-                // Establecer la fecha de modificación
+            if (rolNuevo != null) { 
+                usuario.setRol(rolNuevo); 
                 usuario.setFechaModificacion(LocalDateTime.now());
-
-                // Guardar los cambios
+ 
                 return usuariosSistemaRepository.save(usuario);
             }
         }
 
-        return null; // Si el usuario o el rol no existen
+        return null;  
     }
 }

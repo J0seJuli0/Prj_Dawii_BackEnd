@@ -43,6 +43,7 @@ public class SecurityConfig {
                     http.requestMatchers("/subMenus/listarPorMenu/{idMenu}").hasRole("Jefe");
                     
                     http.requestMatchers("/tipoDocumento/listar").hasRole("Jefe");
+                    http.requestMatchers("/permisosRol/detalles/{id}").hasRole("Jefe");
                     
                     http.requestMatchers("/usuarios/actualizar-rol").hasRole("Jefe");
 

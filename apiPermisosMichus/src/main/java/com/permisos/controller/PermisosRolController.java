@@ -34,15 +34,13 @@ public class PermisosRolController {
 	    String idRol = request.getIdRol();
 	    Integer idSubmenuActual = request.getIdSubmenuActual();
 	    Integer idSubmenuNuevo = request.getIdSubmenuNuevo();
-
-	    // Verificar que exista el registro con la combinación actual
+ 
 	    PermisosRol.PermisosRolId permisoId = new PermisosRol.PermisosRolId(idRol, idSubmenuActual);
 	    if (!permisoRolRepository.existsById(permisoId)) {
 	        return ResponseEntity.status(HttpStatus.NOT_FOUND)
 	                .body("El permiso con idRol y idSubmenu actual no fue encontrado.");
 	    }
-
-	    // Actualizar el idSubmenu
+ 
 	    int rowsAffected = permisoRolRepository.updateSubmenu(idRol, idSubmenuActual, idSubmenuNuevo);
 	    if (rowsAffected > 0) {
 	        return ResponseEntity.ok("El permiso fue actualizado exitosamente.");
