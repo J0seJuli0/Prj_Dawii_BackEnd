@@ -23,13 +23,14 @@ public class EmpleadosService {
 
 	    for (Object[] row : empleadosRaw) {
 	        // Mapea cada columna del resultado a los campos correspondientes del DTO
-	        String nombres = (String) row[0];
-	        String apellidos = (String) row[1];
-	        String documento = (String) row[2];
-	        String numDoc = (String) row[3];
+	    	String codigo = (String) row [0];
+	        String nombres = (String) row[1];
+	        String apellidos = (String) row[2];
+	        String documento = (String) row[3];
+	        String numDoc = (String) row[4];
 	        
 	        // Maneja la conversión de fecha si es necesario
-	        Object fechaIngresoObject = row[4];
+	        Object fechaIngresoObject = row[5];
 	        String fechaIngreso = "";
 	        if (fechaIngresoObject instanceof java.sql.Timestamp) {
 	            java.sql.Timestamp timestamp = (java.sql.Timestamp) fechaIngresoObject;
@@ -41,17 +42,17 @@ public class EmpleadosService {
 
 	        // Verifica si el valor es un Byte para evitar el ClassCastException
 	        String estado = null;
-	        Object estadoObject = row[5];
+	        Object estadoObject = row[6];
 	        if (estadoObject instanceof Byte) {
 	            estado = (estadoObject != null) ? String.valueOf(estadoObject) : null;
 	        } else {
 	            estado = (String) estadoObject;  // Si ya es String, no es necesario hacer conversión
 	        }
 
-	        String rol = (String) row[6];
+	        String rol = (String) row[7];
 
 	        // Crea el objeto EmpleadoDTO
-	        EmpleadosDTO empleadoDTO = new EmpleadosDTO(nombres, apellidos, documento, numDoc, 
+	        EmpleadosDTO empleadoDTO = new EmpleadosDTO(codigo ,nombres, apellidos, documento, numDoc, 
 	                                                  fechaIngreso, estado, rol);
 	        empleadosDTO.add(empleadoDTO);
 	    }
