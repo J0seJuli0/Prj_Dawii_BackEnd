@@ -1,5 +1,6 @@
 package com.permisos.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -79,6 +80,7 @@ public class AdminController {
 	}
 
 	
+	
 	// PERMISOS_ROL
 	@GetMapping("/permisosrol/listarpermisorol")
 	public ResponseEntity<?> listarPermisosRol(@RequestHeader(value = "Authorization", required = true) String authorizationHeader) {
@@ -99,13 +101,28 @@ public class AdminController {
 	    }
 	
 	}
-
 	
 	@PutMapping("/permisosrol/actualizar")
     public ResponseEntity<String> actualizarPermiso(@RequestBody ActualizarPermisosRequest request, @RequestHeader(value = "Authorization", required = true) String authorizationHeader) {
         return adminService.actualizarPermiso(request, authorizationHeader);
     }
 	
+	@GetMapping("/permisosrol/detalles/{idRol}")
+    public ResponseEntity<List<DetallePermisoDTO>> obtenerPermisosRolDet(@PathVariable String idRol, @RequestHeader(value = "Authorization", required = true) String authorizationHeader) {
+        try {
+            List<DetallePermisoDTO> permisos = adminService.BuscarDetallePermiso(idRol, authorizationHeader);
+
+            if (permisos == null || permisos.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+
+            return ResponseEntity.ok(permisos);
+
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(List.of(new DetallePermisoDTO("Error", 0, "Error", "N/A", 0, 0, new Date(), new Date())));
+        }
+    }
 
 	
 	
@@ -124,21 +141,6 @@ public class AdminController {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("TOKEN NO VALIDO");
 	    }
 	}
-
-	/* @PostMapping("/rol/crearrol")
-	 public ResponseEntity<?> crearRol(@RequestHeader(value = "Authorization", required = true) String authorizationHeader, @RequestBody RolDTO rol) {
-	    try {
-	        String token = authorizationHeader.replace("Bearer ", "").trim();
-	        if (token.isEmpty()) {
-	            return ResponseEntity.badRequest().body("Token vacío");
-	        }
-
-	        return adminService.registrarRol(rol, authorizationHeader);
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("TOKEN NO VALIDO");
-	    }
-	}
-	*/
 	
 	@GetMapping("/rol/obtener/{id}")
 	public ResponseEntity<?> obtenerRol(@RequestHeader(value = "Authorization", required = true) String authorizationHeader, @PathVariable String id) {
