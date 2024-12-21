@@ -26,6 +26,9 @@ public interface AdminService {
 		
 	ResponseEntity<String> actualizarPermiso(ActualizarPermisosRequest request, String authorizationHeader);
 	
+	List<DetallePermisoDTO> BuscarDetallePermiso(String idRol, String authorizationHeader);
+	
+	
 	
 	// ROL
 	List<RolDTO>listarRol(String authorizationHeader);
