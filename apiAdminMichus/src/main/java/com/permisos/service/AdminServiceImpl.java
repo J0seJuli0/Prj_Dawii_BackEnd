@@ -58,6 +58,13 @@ public class AdminServiceImpl implements AdminService{
     }
 	
 	
+	@Override
+	public List<DetallePermisoDTO> BuscarDetallePermiso(String idRol, String authorizationHeader) {
+	        return adminFeign.listarDetallePermiso(idRol, authorizationHeader);
+	}
+
+	
+	
 	
 	// ROL
 	@Override
@@ -127,5 +134,7 @@ public class AdminServiceImpl implements AdminService{
 	public LoginOutputDTO login(LoginInputDTO inputDTO) {
 		return adminFeign.login(inputDTO);
 	}
+
+	
 
 }
